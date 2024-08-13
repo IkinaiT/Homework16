@@ -12,9 +12,6 @@ namespace Homework16.Views.Pages
     {
         public AuthorizationPage()
         {
-            MSSQLDbContext db = new();
-            Task.Run(db.Init);
-
             InitializeComponent();
 
             Loaded += AuthorizationPageLoaded;

@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Homework16.Models.Employees;
+using Homework16.ViewModels.Pages;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Homework16.Views.Pages
 {
@@ -20,9 +10,20 @@ namespace Homework16.Views.Pages
     /// </summary>
     public partial class MainPage : Page
     {
-        public MainPage()
+        private Employee _employee;
+
+        public MainPage(Employee e)
         {
+            _employee = e;
+
             InitializeComponent();
+
+            Loaded += MainPageLoaded;
+        }
+
+        private void MainPageLoaded(object sender, RoutedEventArgs e)
+        {
+            DataContext = new MainPageViewModel(NavigationService, _employee);
         }
     }
 }

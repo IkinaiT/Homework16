@@ -41,6 +41,16 @@
                  Grid.Row="3"
                  Grid.Column="1"
                  Command="{Binding AuthorizationCommand}"
-                 Content="{Binding ButtonText}"/>
+                 Content="{Binding ButtonText}"
+                 IsEnabled="{Binding ButtonEnabled}"/>
+
+        <ProgressBar
+            Grid.Row="4"
+            Grid.Column="0"
+            Height="15" 
+            VerticalAlignment="Bottom"
+            IsIndeterminate="True"
+            Visibility="{Binding ProgressbarVisibility}" 
+            Grid.ColumnSpan="4"/>
     </Grid>
 </Page>
