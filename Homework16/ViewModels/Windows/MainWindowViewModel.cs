@@ -1,6 +1,9 @@
-﻿using Homework16.ViewModels.Base;
+﻿using Homework16.Infrastructure.Commands;
+using Homework16.ViewModels.Base;
+using Homework16.Views.Dialogs;
 using Homework16.Views.Pages;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Homework16.ViewModels.Windows
 {
@@ -20,6 +23,7 @@ namespace Homework16.ViewModels.Windows
             get => _frame;
             set => Set(ref _frame, value);
         }
+
 
         public MainWindowViewModel()
         {

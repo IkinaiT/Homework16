@@ -3,6 +3,7 @@ using Homework16.Services.Interfaces.DataBase;
 using Homework16.Services.Runtime.DataBase;
 using Homework16.ViewModels.Base;
 using Homework16.Views.Pages;
+using Homework16.Views.Windows;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -19,10 +20,7 @@ namespace Homework16.ViewModels.Pages
         public string LoginInput
         {
             get => _loginInput;
-            set
-            {
-                Set(ref _loginInput, value);
-            }
+            set => Set(ref _loginInput, value);
         }
 
         #endregion
@@ -32,10 +30,7 @@ namespace Homework16.ViewModels.Pages
         public string PasswordInput
         {
             get => _passwordInput;
-            set
-            {
-                Set(ref _passwordInput, value);
-            }
+            set => Set(ref _passwordInput, value);
         }
 
         #endregion
@@ -93,9 +88,13 @@ namespace Homework16.ViewModels.Pages
         {
             var result = await _dataBaseService.Authorization(_loginInput, _passwordInput);
 
+
             //if (result != null)
             if (result == null)
+            {
+                //((MainWindow)Application.Current.MainWindow).MainMenu.Visibility = Visibility.Visible;
                 _navigationService.Navigate(new MainPage(result));
+            }
             else
                 MessageBox.Show("Пользователь не найден!");
         }

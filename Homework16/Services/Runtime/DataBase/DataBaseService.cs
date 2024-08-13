@@ -51,5 +51,15 @@ namespace Homework16.Services.Runtime.DataBase
 
             OnGetOrders?.Invoke(result);
         }
+
+        public async Task<bool> AddClient(string lastName, string firstMane, string middleName, string email, string phoneNumber)
+        {
+            return await _clientsDb.AddClient(lastName, firstMane, middleName, email, phoneNumber);
+        }
+
+        public async Task<bool> DeleteClient(int id)
+        {
+            return await _clientsDb.DeleteClient(id);
+        }
     }
 }

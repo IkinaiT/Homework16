@@ -10,6 +10,7 @@ using Homework16.Models.Clients;
 using Homework16.DataBase;
 using Homework16.Services.Interfaces.DataBase;
 using Homework16.Services.Runtime.DataBase;
+using Homework16.Views.Dialogs;
 
 namespace Homework16.ViewModels.Pages
 {
@@ -23,10 +24,7 @@ namespace Homework16.ViewModels.Pages
         public ObservableCollection<Client> Clients
         {
             get => _clients;
-            set
-            {
-                Set(ref _clients, value);
-            }
+            set => Set(ref _clients, value);
         }
 
 
@@ -34,10 +32,7 @@ namespace Homework16.ViewModels.Pages
         public ObservableCollection<Order> Orders
         {
             get => _orders;
-            set
-            {
-                Set(ref _orders, value);
-            }
+            set => Set(ref _orders, value);
         }
 
 
@@ -48,10 +43,60 @@ namespace Homework16.ViewModels.Pages
             set
             {
                 _orders.Clear();
-                GetOrders();
+                _selectedOrder = null;
                 Set(ref _selectedClient, value);
+                GetOrders();
             }
         }
+
+
+        private Order? _selectedOrder;
+        public Order? SelectedOrder
+        {
+            get => _selectedOrder;
+            set => Set(ref _selectedOrder, value);
+        }
+
+        #region Commands
+
+        public ICommand AddClientCommand { get; }
+
+        private bool CanAddClientCommandExecute(object p) => true;
+
+        private void OnAddClientCommandExecuted(object p)
+        {
+            AddClientWindow addClientWindow = new();
+
+            if(addClientWindow.ShowDialog() != null)
+            {
+                _selectedClient = null;
+                _selectedOrder = null;
+                _orders.Clear();
+                _clients.Clear();
+                Task.Run(_dataBaseService.GetAllClients);
+            }
+        }
+
+        public ICommand DeleteClientCommand { get; }
+
+        private bool CanDeleteClientCommandExecute(object p) => true;
+
+        private void OnDeleteClientCommandExecuted(object p)
+        {
+            var result = MessageBox.Show("Удалить пользователя?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if(result == MessageBoxResult.Yes)
+            {
+                _dataBaseService.DeleteClient(_selectedClient?.Id ?? -1);
+                _selectedClient = null;
+                _selectedOrder = null;
+                _orders.Clear();
+                _clients.Clear();
+                Task.Run(_dataBaseService.GetAllClients);
+            }
+        }
+
+        #endregion
 
 
         private IDataBaseService _dataBaseService = new DataBaseService();
@@ -61,6 +106,13 @@ namespace Homework16.ViewModels.Pages
         {
             _employee = employee;
             _navigationService = navigationService;
+
+            #region Commands
+
+            AddClientCommand = new RelayCommand(OnAddClientCommandExecuted, CanAddClientCommandExecute);
+            DeleteClientCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);
+
+            #endregion
 
             _dataBaseService.OnGetAllClients += c =>
             {

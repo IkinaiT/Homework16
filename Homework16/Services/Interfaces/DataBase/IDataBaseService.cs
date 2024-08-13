@@ -14,6 +14,9 @@ namespace Homework16.Services.Interfaces.DataBase
         public Task GetBoss(int id);
 
         public Task GetAllClients(); 
-        public Task GetOrders(string email); 
+        public Task GetOrders(string email);
+
+        public Task<bool> AddClient(string lastName, string firstMane, string middleName, string email, string phoneNumber);
+        public Task<bool> DeleteClient(int id);
     }
 }

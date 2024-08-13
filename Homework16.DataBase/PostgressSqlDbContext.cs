@@ -56,9 +56,85 @@ namespace Homework16.DataBase
         {
             List<Order> result = [];
 
+            try
+            {
+                var sqlExpression = $"SELECT * FROM public.\"Orders\" WHERE \"Orders\".\"ClientEmail\" = '{email.ToLower()}' ORDER BY \"Id\"";
 
+                using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString.ConnectionString))
+                {
+                    await connection.OpenAsync();
+
+                    NpgsqlCommand command = new NpgsqlCommand(sqlExpression, connection);
+
+                    var reader = command.ExecuteReader();
+
+                    while (await reader.ReadAsync())
+                    {
+                        result.Add(new()
+                        {
+                            Id = (int)reader["Id"],
+                            Name = (string)reader["Name"],
+                            Code = (int)reader["Code"],
+                            ClientEmail = (string)reader["ClientEmail"]
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
 
             return result;
+        }
+
+        public async Task<bool> AddClient(string lastName, string firstMane, string middleName, string email, string phoneNumber)
+        {
+            try
+            {
+                var sqlExpression = $"INSERT INTO public.\"Clients\" (\r\n\"Id\", \"LastName\", \"FirstName\", \"MiddleName\", \"Email\", \"PhoneNumber\") " +
+                    $"VALUES (\r\n(SELECT MAX(\"Id\")+1 FROM public.\"Clients\"), '{lastName}'::text, '{firstMane}'::text, '{middleName}'::text, '{email}'::text, '{phoneNumber}'::text)";
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString.ConnectionString))
+                {
+                    await connection.OpenAsync();
+
+                    NpgsqlCommand command = new NpgsqlCommand(sqlExpression, connection);
+
+                    await command.ExecuteNonQueryAsync();
+                }
+
+                return true;
+            }
+            catch 
+            {
+            }
+
+            return false;
+        }
+
+        public async Task<bool> DeleteClient(int id)
+        {
+            try
+            {
+                var sqlExpression = $"DELETE FROM public.\"Clients\"\r\n\tWHERE \"Clients\".\"Id\" = {id}";
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString.ConnectionString))
+                {
+                    await connection.OpenAsync();
+
+                    NpgsqlCommand command = new NpgsqlCommand(sqlExpression, connection);
+
+                    await command.ExecuteNonQueryAsync();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return false;
         }
     }
 }

@@ -14,5 +14,8 @@
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
-    <Frame Content="{Binding Frame.Content}" Name="MainFrame" Background="White" NavigationUIVisibility="Hidden" />
+
+    <Grid>
+        <Frame Content="{Binding Frame.Content}" Name="MainFrame" Background="White" NavigationUIVisibility="Hidden" Grid.Row="1"/>
+    </Grid>
 </Window>
