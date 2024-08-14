@@ -29,7 +29,6 @@
                 Margin="10 25"
                 Content="Создать"
                 IsDefault="True"
-                IsEnabled="{Binding AcceptButtonEnabled}"
                 Command="{Binding AcceptCommand}"/>
         </Grid>
 

@@ -5,8 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework16.Views.Dialogs"
         mc:Ignorable="d"
-        Title="UpdateEmployeeWindow" Height="450" Width="800">
+        Title="UpdateEmployeeWindow" Height="500" Width="400">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button 
+                Margin="15 25"
+                Content="Отменить"
+                IsCancel="True"/>
+
+            <Button 
+                Grid.Column="1"
+                Margin="15 25"
+                Content="Сохранить"
+                IsDefault="True"
+                Command="{Binding AcceptCommand}"/>
+        </Grid>
+
+        <Label Content="Фамилия" Grid.Row="0" Margin="10 0 0 0"/>
+        <TextBox
+     MinWidth="300"
+     Margin="15 25"
+     Text="{Binding LastName}"
+     Grid.Row="0"
+     Grid.Column="0"/>
+
+        <Label Content="Имя" Grid.Row="1" Margin="10 0 0 0"/>
+        <TextBox
+     MinWidth="300"
+     Margin="15 25"
+     Text="{Binding FirstName}"
+     Grid.Row="1"
+     Grid.Column="0"/>
+
+        <Label Content="Отчество" Grid.Row="2" Margin="10 0 0 0"/>
+        <TextBox
+     MinWidth="300"
+     Margin="15 25"
+     Text="{Binding MiddleName}"
+     Grid.Row="2"
+     Grid.Column="0"/>
+
+        <Label Content="Возраст" Grid.Row="4" Margin="10 0 0 0"/>
+        <TextBox
+     MinWidth="300"
+     Margin="15 25"
+     Text="{Binding Age}"
+     Grid.Row="4"
+     Grid.Column="0"/>
+
+        <Label Content="Почта" Grid.Row="3" Margin="10 0 0 0"/>
+        <TextBox
+     MinWidth="300"
+     Margin="15 25"
+     IsEnabled="False"
+     Text="{Binding Email}"
+     Grid.Row="3"
+     Grid.Column="0"/>
+
     </Grid>
 </Window>

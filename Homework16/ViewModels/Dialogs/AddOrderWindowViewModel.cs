@@ -17,22 +17,14 @@ namespace Homework16.ViewModels.Dialogs
         public string Code
         {
             get => _code;
-            set
-            {
-                CheckNull();
-                Set(ref _code, value);
-            }
+            set => Set(ref _code, value);
         }
 
         private string _name = string.Empty;
         public string Name
         {
             get => _name;
-            set
-            {
-                CheckNull();
-                Set(ref _name, value);
-            }
+            set => Set(ref _name, value);
         }
 
         #endregion
@@ -59,17 +51,6 @@ namespace Homework16.ViewModels.Dialogs
 
         #endregion
 
-        #region Properties
-
-        private bool _acceptButtonEnabled = false;
-        public bool AcceptButtonEnabled
-        {
-            get => _acceptButtonEnabled;
-            set => Set(ref _acceptButtonEnabled, value);
-        }
-
-        #endregion
-
 
         public AddOrderWindowViewModel(string email)//добавить передачу мыла
         {
@@ -79,11 +60,6 @@ namespace Homework16.ViewModels.Dialogs
             AcceptCommand = new RelayCommand(OnAcceptCommandExecuted, CanAcceptCommandExecute);
 
             #endregion
-        }
-
-        private void CheckNull()
-        {
-            AcceptButtonEnabled = !string.IsNullOrWhiteSpace(Code) && !string.IsNullOrWhiteSpace(Name) && int.TryParse(_code, out var temp);
         }
     }
 }

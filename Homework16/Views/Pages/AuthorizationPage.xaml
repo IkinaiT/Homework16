@@ -13,9 +13,9 @@
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -23,21 +23,29 @@
             <ColumnDefinition Width="300"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Label
+                 Grid.Row="1"
+                 Grid.Column="1"
+                 Content="Email"/>
         <TextBox HorizontalAlignment="Center"
                  MinWidth="300"
-                 Margin="0,5,0,5"
+                 Margin="0,20,0,10"
                  Text="{Binding LoginInput}"
                  Grid.Row="1"
                  Grid.Column="1"/>
+        <Label
+         Grid.Row="2"
+         Grid.Column="1"
+         Content="Пароль"/>
         <TextBox HorizontalAlignment="Center"
                  MinWidth="300"
-                 Margin="0,5,0,5"
+                 Margin="0,20,0,10"
                  Text="{Binding PasswordInput}"
                  Grid.Row="2"
                  Grid.Column="1"/>
         <Button  HorizontalAlignment="Center"
                  MinWidth="300"
-                 Margin="0,5,0,5"
+                 Margin="0,15,0,15"
                  Grid.Row="3"
                  Grid.Column="1"
                  Command="{Binding AuthorizationCommand}"

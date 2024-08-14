@@ -182,11 +182,29 @@ namespace Homework16.DataBase
             return null;
         }
 
-        public async Task<Boss?> GetBoss(int id)
+        public async Task<bool> UpdateEmployee(Employee e)
         {
+            try
+            {
+                string sqlExpression = $"UPDATE Employees " +
+                    $"SET LastName = '{e.LastName}', FirstName = '{e.FirstName}', MiddleName = '{e.MiddleName}', Age = '{e.Age}' " +
+                    $"WHERE Id = '{e.Id}'";
 
+                using (SqlConnection _connection = new(_stringConnection.ConnectionString))
+                {
+                    await _connection.OpenAsync();
 
-            return null;
+                    SqlCommand command = new(sqlExpression, _connection);
+                    await command.ExecuteNonQueryAsync();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return false;
         }
     }
 }

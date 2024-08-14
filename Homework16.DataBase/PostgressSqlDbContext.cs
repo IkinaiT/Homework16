@@ -144,7 +144,7 @@ namespace Homework16.DataBase
         {
             try
             {
-                var sqlExpression = $"INSERT INTO public.\"Orders\" (\r\n\"ClientEmail\", \"FirstName\", \"MiddleName\") " +
+                var sqlExpression = $"INSERT INTO public.\"Orders\" (\r\n\"ClientEmail\", \"Code\", \"Name\") " +
                     $"VALUES (\r\n'{email}'::text, '{code}'::integer, '{name}'::text)";
 
                 using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString.ConnectionString))
@@ -169,7 +169,7 @@ namespace Homework16.DataBase
         {
             try
             {
-                var sqlExpression = $"DELETE FROM public.\"Clients\"\r\n\tWHERE \"Clients\".\"Id\" = {id}";
+                var sqlExpression = $"DELETE FROM public.\"Orders\"\r\n\tWHERE \"Id\" = {id}";
 
                 using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString.ConnectionString))
                 {
@@ -185,12 +185,6 @@ namespace Homework16.DataBase
             catch (Exception ex)
             {
             }
-
-            return false;
-        }
-
-        public async Task<bool> UpdateEmployee(Employee employee)
-        {
 
             return false;
         }

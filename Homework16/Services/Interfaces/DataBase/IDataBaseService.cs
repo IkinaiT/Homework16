@@ -11,7 +11,6 @@ namespace Homework16.Services.Interfaces.DataBase
 
         public Task Init();
         public Task<Employee?> Authorization(string email, string password);
-        public Task GetBoss(int id);
 
         public Task GetAllClients(); 
         public Task GetOrders(string email);

@@ -168,7 +168,9 @@ namespace Homework16.ViewModels.Pages
 
         private void OnUpdateEmployeeCommandExecuted(object p)
         {
-            UpdateEmployeeWindow updateEmployeeWindow = new();
+            UpdateEmployeeWindow updateEmployeeWindow = new(_employee);
+
+            updateEmployeeWindow.ShowDialog();
         }
 
         #endregion
@@ -186,8 +188,8 @@ namespace Homework16.ViewModels.Pages
 
             AddClientCommand = new RelayCommand(OnAddClientCommandExecuted, CanAddClientCommandExecute);
             DeleteClientCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);
-            AddOrderCommand = new RelayCommand(OnAddClientCommandExecuted, CanAddClientCommandExecute);
-            DeleteOrderCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);
+            AddOrderCommand = new RelayCommand(OnAddOrderCommandExecuted, CanAddOrderCommandExecute);
+            DeleteOrderCommand = new RelayCommand(OnDeleteOrderCommandExecuted, CanDeleteOrderCommandExecute);
             UpdateEmployeeCommand = new RelayCommand(OnUpdateEmployeeCommandExecuted, CanUpdateEmployeeCommandExecute);
 
             #endregion

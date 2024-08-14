@@ -16,7 +16,7 @@ namespace Homework16.ViewModels.Pages
 
         #region Login input
 
-        private string _loginInput = string.Empty;
+        private string _loginInput = "andreevaa@mail.ru";
         public string LoginInput
         {
             get => _loginInput;
@@ -26,7 +26,7 @@ namespace Homework16.ViewModels.Pages
         #endregion
         #region Password input
 
-        private string _passwordInput = string.Empty;
+        private string _passwordInput = "123123213";
         public string PasswordInput
         {
             get => _passwordInput;
@@ -89,10 +89,8 @@ namespace Homework16.ViewModels.Pages
             var result = await _dataBaseService.Authorization(_loginInput, _passwordInput);
 
 
-            //if (result != null)
-            if (result == null)
+            if (result != null)
             {
-                //((MainWindow)Application.Current.MainWindow).MainMenu.Visibility = Visibility.Visible;
                 _navigationService.Navigate(new MainPage(result));
             }
             else

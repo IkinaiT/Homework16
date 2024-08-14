@@ -33,11 +33,6 @@ namespace Homework16.Services.Runtime.DataBase
             return result is Employee obj ? obj : null;
         }
 
-        public async Task GetBoss(int id)
-        {
-            await _employeesDb.GetBoss(id);
-        }
-
         public async Task GetAllClients()
         {
             var result = await _clientsDb.GetAllClients();
@@ -74,7 +69,7 @@ namespace Homework16.Services.Runtime.DataBase
 
         public async Task<bool> UpdateEmployee(Employee employee)
         {
-            return await _clientsDb.UpdateEmployee(employee);
+            return await _employeesDb.UpdateEmployee(employee);
         }
     }
 }
