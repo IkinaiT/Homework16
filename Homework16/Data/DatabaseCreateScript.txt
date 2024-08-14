@@ -1,0 +1,103 @@
+﻿**************************Create database*********************************
+
+-- Database: clients
+
+-- DROP DATABASE IF EXISTS clients;
+
+CREATE DATABASE clients
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Russian_Russia.1251'
+    LC_CTYPE = 'Russian_Russia.1251'
+    LOCALE_PROVIDER = 'libc'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+***************************Create tables***************************************
+
+-- Table: public.Clients
+
+-- DROP TABLE IF EXISTS public."Clients";
+
+CREATE TABLE IF NOT EXISTS public."Clients"
+(
+    "Id" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    "LastName" text COLLATE pg_catalog."default" NOT NULL,
+    "FirstName" text COLLATE pg_catalog."default" NOT NULL,
+    "MiddleName" text COLLATE pg_catalog."default" NOT NULL,
+    "PhoneNumber" text COLLATE pg_catalog."default",
+    "Email" text COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "Clients_pkey" PRIMARY KEY ("Id"),
+    CONSTRAINT "Clients_Email_key" UNIQUE ("Email")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Clients"
+    OWNER to postgres;
+
+-------------------------------------------------------------------------------------------
+
+-- Table: public.Orders
+
+-- DROP TABLE IF EXISTS public."Orders";
+
+CREATE TABLE IF NOT EXISTS public."Orders"
+(
+    "Id" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    "ClientEmail" text COLLATE pg_catalog."default" NOT NULL,
+    "Code" integer NOT NULL,
+    "Name" text COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "Orders_pkey" PRIMARY KEY ("Id"),
+    CONSTRAINT fk FOREIGN KEY ("ClientEmail")
+        REFERENCES public."Clients" ("Email") MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Orders"
+    OWNER to postgres;
+
+***************************Fill tables***************************************
+
+INSERT INTO public."Clients" (
+"LastName", "FirstName", "MiddleName", "Email") VALUES (
+'Гоголь'::text, 'Николай'::text, 'Васильевич'::text, 'gogolnv@mail.ru'::text)
+
+INSERT INTO public."Clients" (
+"LastName", "FirstName", "MiddleName", "Email") VALUES (
+'Пушкин'::text, 'Александр'::text, 'Сергеевич'::text, 'pushkinas@mail.ru'::text)
+
+INSERT INTO public."Clients" (
+"LastName", "FirstName", "MiddleName", "Email") VALUES (
+'Блок'::text, 'Александр'::text, 'Александрович'::text, 'blockaa@mail.ru'::text)
+
+
+INSERT INTO public."Orders"(
+	"ClientEmail", "Code", "Name")
+	VALUES ('gogolnv@mail.ru'::text, 1::integer, 'Dead souls 2'::text);
+
+INSERT INTO public."Orders"(
+	"ClientEmail", "Code", "Name")
+	VALUES ('gogolnv@mail.ru'::text, 2::integer, 'Screwdriver set'::text);
+
+INSERT INTO public."Orders"(
+	"ClientEmail", "Code", "Name")
+	VALUES ('gogolnv@mail.ru'::text, 3::integer, 'Candle'::text);
+
+INSERT INTO public."Orders"(
+	"ClientEmail", "Code", "Name")
+	VALUES ('pushkinas@mail.ru'::text, 1::integer, 'Dead souls 2'::text);
+
+INSERT INTO public."Orders"(
+	"ClientEmail", "Code", "Name")
+	VALUES ('pushkinas@mail.ru'::text, 4::integer, 'Black eagle'::text);
+
+INSERT INTO public."Orders"(
+	"ClientEmail", "Code", "Name")
+	VALUES ('blockaa@mail.ru'::text, 1::integer, 'Dead souls 2'::text);

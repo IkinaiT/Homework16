@@ -20,7 +20,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -28,6 +28,20 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
+
+            <Button
+                Content="Создать заказ"
+                Grid.Row="1"
+                Margin="15 25"
+                IsEnabled="{Binding AddOrderButtonEnabled}"
+                Command="{Binding AddOrderCommand}"/>
+
+            <Button
+                Content="Удалить заказ"
+                Grid.Row="3"
+                Margin="15 25"
+                IsEnabled="{Binding DeleteOrderButtonEnabled}"
+                Command="{Binding DeleteOrderCommand}"/>
         </Grid>
 
         <Menu x:Name="MainMenu" 
@@ -36,7 +50,6 @@
               Grid.ColumnSpan="3">
             <MenuItem Header="Клиенты">
                 <MenuItem Header="Добавить" Command="{Binding AddClientCommand}"/>
-                <MenuItem Header="Создать заявку"/>
             </MenuItem>
             <MenuItem Header="Аккаунт">
                 <MenuItem Header="Посмотреть информацию"/>

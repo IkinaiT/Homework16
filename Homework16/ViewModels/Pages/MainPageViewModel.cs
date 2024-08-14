@@ -19,6 +19,7 @@ namespace Homework16.ViewModels.Pages
         private Employee _employee;
         private NavigationService _navigationService;
 
+        #region Collections
 
         private ObservableCollection<Client> _clients = [];
         public ObservableCollection<Client> Clients
@@ -35,6 +36,9 @@ namespace Homework16.ViewModels.Pages
             set => Set(ref _orders, value);
         }
 
+        #endregion
+
+        #region Selected
 
         private Client? _selectedClient;
         public Client? SelectedClient
@@ -43,7 +47,11 @@ namespace Homework16.ViewModels.Pages
             set
             {
                 _orders.Clear();
-                _selectedOrder = null;
+                SelectedOrder = null;
+
+                DeleteOrderButtonEnabled = false;
+                AddOrderButtonEnabled = value != null;
+
                 Set(ref _selectedClient, value);
                 GetOrders();
             }
@@ -54,8 +62,32 @@ namespace Homework16.ViewModels.Pages
         public Order? SelectedOrder
         {
             get => _selectedOrder;
-            set => Set(ref _selectedOrder, value);
+            set 
+            {
+                DeleteOrderButtonEnabled = value != null;
+                Set(ref _selectedOrder, value);
+            } 
         }
+
+        #endregion
+
+        #region Properties
+
+        private bool _addOrderButtonEnabled;
+        public bool AddOrderButtonEnabled
+        {
+            get => _addOrderButtonEnabled;
+            set => Set(ref _addOrderButtonEnabled, value);
+        }
+
+        private bool _deleteOrderButtonEnabled;
+        public bool DeleteOrderButtonEnabled
+        {
+            get => _deleteOrderButtonEnabled;
+            set => Set(ref _deleteOrderButtonEnabled, value);
+        }
+
+        #endregion
 
         #region Commands
 
@@ -69,8 +101,8 @@ namespace Homework16.ViewModels.Pages
 
             if(addClientWindow.ShowDialog() != null)
             {
-                _selectedClient = null;
-                _selectedOrder = null;
+                SelectedClient = null;
+                SelectedOrder = null;
                 _orders.Clear();
                 _clients.Clear();
                 Task.Run(_dataBaseService.GetAllClients);
@@ -88,11 +120,39 @@ namespace Homework16.ViewModels.Pages
             if(result == MessageBoxResult.Yes)
             {
                 _dataBaseService.DeleteClient(_selectedClient?.Id ?? -1);
-                _selectedClient = null;
-                _selectedOrder = null;
+                SelectedClient = null;
+                SelectedOrder = null;
                 _orders.Clear();
                 _clients.Clear();
                 Task.Run(_dataBaseService.GetAllClients);
+            }
+        }
+
+        public ICommand AddOrderCommand { get; }
+
+        private bool CanAddOrderCommandExecute(object p) => true;
+
+        private void OnAddOrderCommandExecuted(object p)
+        {
+            
+        }
+
+        public ICommand DeleteOrderCommand { get; }
+
+        private bool CanDeleteOrderCommandExecute(object p) => true;
+
+        private void OnDeleteOrderCommandExecuted(object p)
+        {
+            var result = MessageBox.Show("Удалить заказ?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if(result == MessageBoxResult.Yes)
+            {
+                //_dataBaseService.DeleteClient(_selectedClient?.Id ?? -1);
+                //_selectedClient = null;
+                //_selectedOrder = null;
+                //_orders.Clear();
+                //_clients.Clear();
+                //Task.Run(_dataBaseService.GetAllClients);
             }
         }
 
@@ -111,6 +171,8 @@ namespace Homework16.ViewModels.Pages
 
             AddClientCommand = new RelayCommand(OnAddClientCommandExecuted, CanAddClientCommandExecute);
             DeleteClientCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);
+            AddOrderCommand = new RelayCommand(OnAddClientCommandExecuted, CanAddClientCommandExecute);
+            DeleteOrderCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);
 
             #endregion
 

@@ -32,6 +32,8 @@ namespace Homework16.DataBase
 
                     while(await reader.ReadAsync())
                     {
+                        var t = reader.IsDBNull(4) ? null : reader.GetValue(4);
+
                         result.Add(new()
                         {
                             Id = (int)reader["Id"],
@@ -39,7 +41,7 @@ namespace Homework16.DataBase
                             FirstName = (string)reader["FirstName"],
                             MiddleName = (string)reader["MiddleName"],
                             Email = (string)reader["Email"],
-                            PhoneNumber = (string)reader["PhoneNumber"]
+                            PhoneNumber = (string?)t
                         });
                     }
                 }
@@ -92,8 +94,8 @@ namespace Homework16.DataBase
         {
             try
             {
-                var sqlExpression = $"INSERT INTO public.\"Clients\" (\r\n\"Id\", \"LastName\", \"FirstName\", \"MiddleName\", \"Email\", \"PhoneNumber\") " +
-                    $"VALUES (\r\n(SELECT MAX(\"Id\")+1 FROM public.\"Clients\"), '{lastName}'::text, '{firstMane}'::text, '{middleName}'::text, '{email}'::text, '{phoneNumber}'::text)";
+                var sqlExpression = $"INSERT INTO public.\"Clients\" (\r\n\"LastName\", \"FirstName\", \"MiddleName\", \"Email\", \"PhoneNumber\") " +
+                    $"VALUES (\r\n'{lastName}'::text, '{firstMane}'::text, '{middleName}'::text, '{email}'::text, '{phoneNumber}'::text)";
 
                 using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString.ConnectionString))
                 {
@@ -106,7 +108,7 @@ namespace Homework16.DataBase
 
                 return true;
             }
-            catch 
+            catch (Exception ex)
             {
             }
 
