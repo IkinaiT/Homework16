@@ -61,5 +61,20 @@ namespace Homework16.Services.Runtime.DataBase
         {
             return await _clientsDb.DeleteClient(id);
         }
+
+        public async Task<bool> AddOrder(string email, int code, string name)
+        {
+            return await _clientsDb.AddOrder(email, code, name);
+        }
+
+        public async Task<bool> DeleteOrder(int id)
+        {
+            return await _clientsDb.DeleteOrder(id);
+        }
+
+        public async Task<bool> UpdateEmployee(Employee employee)
+        {
+            return await _clientsDb.UpdateEmployee(employee);
+        }
     }
 }

@@ -18,5 +18,10 @@ namespace Homework16.Services.Interfaces.DataBase
 
         public Task<bool> AddClient(string lastName, string firstMane, string middleName, string email, string phoneNumber);
         public Task<bool> DeleteClient(int id);
+        
+        public Task<bool> AddOrder(string email, int code, string name);
+        public Task<bool> DeleteOrder(int id);
+
+        public Task<bool> UpdateEmployee(Employee employee);
     }
 }

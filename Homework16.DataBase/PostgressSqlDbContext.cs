@@ -1,4 +1,5 @@
 ﻿using Homework16.Models.Clients;
+using Homework16.Models.Employees;
 using Npgsql;
 
 namespace Homework16.DataBase
@@ -135,6 +136,61 @@ namespace Homework16.DataBase
             catch (Exception ex)
             {
             }
+
+            return false;
+        }
+
+        public async Task<bool> AddOrder(string email, int code, string name)
+        {
+            try
+            {
+                var sqlExpression = $"INSERT INTO public.\"Orders\" (\r\n\"ClientEmail\", \"FirstName\", \"MiddleName\") " +
+                    $"VALUES (\r\n'{email}'::text, '{code}'::integer, '{name}'::text)";
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString.ConnectionString))
+                {
+                    await connection.OpenAsync();
+
+                    NpgsqlCommand command = new NpgsqlCommand(sqlExpression, connection);
+
+                    await command.ExecuteNonQueryAsync();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return false;
+        }
+
+        public async Task<bool> DeleteOrder(int id)
+        {
+            try
+            {
+                var sqlExpression = $"DELETE FROM public.\"Clients\"\r\n\tWHERE \"Clients\".\"Id\" = {id}";
+
+                using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString.ConnectionString))
+                {
+                    await connection.OpenAsync();
+
+                    NpgsqlCommand command = new NpgsqlCommand(sqlExpression, connection);
+
+                    await command.ExecuteNonQueryAsync();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return false;
+        }
+
+        public async Task<bool> UpdateEmployee(Employee employee)
+        {
 
             return false;
         }

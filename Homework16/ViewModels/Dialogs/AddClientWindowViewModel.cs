@@ -133,7 +133,6 @@ namespace Homework16.ViewModels.Dialogs
         {
             #region Commands
 
-            //CancellCommand = new RelayCommand(OnCancellCommandExecuted, CanCancellCommandExecute);
             AcceptCommand = new RelayCommand(OnAcceptCommandExecuted, CanAcceptCommandExecute);
 
             #endregion

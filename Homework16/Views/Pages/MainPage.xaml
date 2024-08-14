@@ -52,7 +52,7 @@
                 <MenuItem Header="Добавить" Command="{Binding AddClientCommand}"/>
             </MenuItem>
             <MenuItem Header="Аккаунт">
-                <MenuItem Header="Посмотреть информацию"/>
+                <MenuItem Header="Редактировать" Command="{Binding UpdateEmployeeCommand}"/>
             </MenuItem>
         </Menu>
 

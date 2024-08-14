@@ -1,13 +1,11 @@
 ﻿using Homework16.Models.Employees;
 using Homework16.ViewModels.Base;
-using Homework16.Views.Pages;
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Navigation;
 using Homework16.Infrastructure.Commands;
 using System.Collections.ObjectModel;
 using Homework16.Models.Clients;
-using Homework16.DataBase;
 using Homework16.Services.Interfaces.DataBase;
 using Homework16.Services.Runtime.DataBase;
 using Homework16.Views.Dialogs;
@@ -134,7 +132,17 @@ namespace Homework16.ViewModels.Pages
 
         private void OnAddOrderCommandExecuted(object p)
         {
-            
+            if(_selectedClient != null)
+            {
+                AddOrderWindow addOrderWindow = new(_selectedClient.Email);
+
+                if (addOrderWindow.ShowDialog() != null)
+                {
+                    SelectedOrder = null;
+                    _orders.Clear();
+                    GetOrders();
+                }
+            }
         }
 
         public ICommand DeleteOrderCommand { get; }
@@ -147,13 +155,20 @@ namespace Homework16.ViewModels.Pages
 
             if(result == MessageBoxResult.Yes)
             {
-                //_dataBaseService.DeleteClient(_selectedClient?.Id ?? -1);
-                //_selectedClient = null;
-                //_selectedOrder = null;
-                //_orders.Clear();
-                //_clients.Clear();
-                //Task.Run(_dataBaseService.GetAllClients);
+                _dataBaseService.DeleteOrder(_selectedOrder?.Id ?? -1);
+                SelectedOrder = null;
+                _orders.Clear();
+                GetOrders();
             }
+        }
+
+        public ICommand UpdateEmployeeCommand { get; }
+
+        private bool CanUpdateEmployeeCommandExecute(object p) => true;
+
+        private void OnUpdateEmployeeCommandExecuted(object p)
+        {
+            UpdateEmployeeWindow updateEmployeeWindow = new();
         }
 
         #endregion
@@ -173,6 +188,7 @@ namespace Homework16.ViewModels.Pages
             DeleteClientCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);
             AddOrderCommand = new RelayCommand(OnAddClientCommandExecuted, CanAddClientCommandExecute);
             DeleteOrderCommand = new RelayCommand(OnDeleteClientCommandExecuted, CanDeleteClientCommandExecute);
+            UpdateEmployeeCommand = new RelayCommand(OnUpdateEmployeeCommandExecuted, CanUpdateEmployeeCommandExecute);
 
             #endregion
 
