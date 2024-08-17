@@ -198,6 +198,8 @@ namespace Homework16.ViewModels.Pages
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
+                    Clients.Clear();
+
                     foreach (var client in c)
                     {
                         Clients.Add(client);
@@ -209,6 +211,8 @@ namespace Homework16.ViewModels.Pages
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
+                    Orders.Clear();
+
                     foreach (var order in o)
                     {
                         Orders.Add(order);

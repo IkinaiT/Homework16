@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Homework16", "Homework16\Ho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Homework16.DataBase", "Homework16.DataBase\Homework16.DataBase.csproj", "{22A62D77-6A7B-4A3C-8F6A-D53C5F3416CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework16.Models", "Homework16.Models\Homework16.Models.csproj", "{070FA495-BC43-4FA3-90AF-993FCF00AEE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Homework16.Models", "Homework16.Models\Homework16.Models.csproj", "{070FA495-BC43-4FA3-90AF-993FCF00AEE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

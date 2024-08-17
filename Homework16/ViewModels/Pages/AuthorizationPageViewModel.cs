@@ -91,10 +91,14 @@ namespace Homework16.ViewModels.Pages
 
             if (result != null)
             {
-                _navigationService.Navigate(new MainPage(result));
+                if(result.Id != -1)
+                    _navigationService.Navigate(new MainPage(result));
             }
             else
+            {
                 MessageBox.Show("Пользователь не найден!");
+            }
+                
         }
 
         #endregion
